@@ -2,14 +2,36 @@ import React from 'react';
 import './App.css';
 import UserCard from './Components/UserCard';
 import FollowersCard from './Components/FollowersCard';
+import axios from 'axios';
 
-function App() {
+
+class App extends React.Component {
+  
+    state = {
+      user: []
+    };
+
+    componentDidMount() {
+      axios
+        .get('https://api.github.com/users/amohler09')
+        .then(response => {
+          this.setState ({
+            user: response.data
+          });
+          //console.log(response.data);
+        })
+        .catch(error => console.log(error))
+    }
+  
+
+  render() {
   return (
     <div className="App">
-      <UserCard />
+      <UserCard user={this.state.user}/>
       <FollowersCard />
     </div>
   );
+  }
 }
 
 export default App;
