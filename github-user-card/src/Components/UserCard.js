@@ -3,7 +3,7 @@ import React from 'react'
 const UserCard = props => {
     //console.log('These are the user props', props.user)
     return(
-        <div>
+        <div className='user-card'>
             <h1>Github User {props.user.login}</h1>
                 <img width='300' src={props.user.avatar_url} alt='user'></img>
                 <p>{props.user.bio}</p>
