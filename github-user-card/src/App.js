@@ -8,7 +8,8 @@ import axios from 'axios';
 class App extends React.Component {
   
     state = {
-      user: []
+      user: [],
+      followers: []
     };
 
     componentDidMount() {
@@ -18,17 +19,30 @@ class App extends React.Component {
           this.setState ({
             user: response.data
           });
+
           //console.log(response.data);
         })
         .catch(error => console.log(error))
-    }
-  
+    
+
+    axios
+      .get('https://api.github.com/users/amohler09/followers')
+      .then(response => {
+        this.setState ({
+          followers: response.data
+        })
+        //console.log(response.data)
+      })
+      .catch(error => console.log(error))
+      }
+
+      
 
   render() {
   return (
     <div className="App">
       <UserCard user={this.state.user}/>
-      <FollowersCard />
+      <FollowersCard followers={this.state.followers} />
     </div>
   );
   }
