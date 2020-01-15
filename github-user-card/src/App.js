@@ -3,6 +3,24 @@ import './App.css';
 import UserCard from './Components/UserCard';
 import FollowersCard from './Components/FollowersCard';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const Input = styled.input`
+  margin: 5% 1% auto auto;
+  width: 250px;
+  height: 30px;
+  background-color: lavender;
+  font-size: 1rem;
+  color: rebeccapurple;
+`;
+
+const FetchButton = styled.button`
+  background-color: darkslateblue;
+  color: white;
+  font-size: 1rem;
+  padding: .75%;
+  font-weight: bold;
+`;
 
 
 class App extends React.Component {
@@ -49,7 +67,8 @@ class App extends React.Component {
           .get(`https://api.github.com/users/${this.state.searchText}`)
           .then(response => {
             this.setState({
-              user: response.data
+              user: response.data,
+              searchText: ''
             })
           })
           }
@@ -75,17 +94,17 @@ class App extends React.Component {
   render() {
   return (
     <div className="App">
-      <input
+      <Input
       type='text'
       value={this.state.searchText}
       onChange={this.handleChanges}
       />
     {/* <button onClick={() =>
           {this.fetchUser(); this.fetchFollowers()}  
-      }>Fetch User</button> */}
-      <button onClick={this.onClickEvent}>Search</button>
+      }>Fetch User</button> --- another way to combine two onClicks */}
+      <FetchButton onClick={this.onClickEvent}>Fetch a Different User</FetchButton>
       <UserCard user={this.state.user}/>
-      <FollowersCard followers={this.state.followers} />
+      <FollowersCard user={this.state.user} followers={this.state.followers} />
     </div>
   );
   }
